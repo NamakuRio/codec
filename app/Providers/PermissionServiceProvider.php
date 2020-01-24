@@ -26,15 +26,18 @@ class PermissionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // mapping user permission
-        Permission::get()->map(function ($permission) {
-            Gate::define($permission->name, function($user) use ($permission) {
-                return $user->hasPermissionTo($permission);
+        // check installation
+        if (file_exists(storage_path('installed'))) {
+            // mapping user permission
+            Permission::get()->map(function ($permission) {
+                Gate::define($permission->name, function ($user) use ($permission) {
+                    return $user->hasPermissionTo($permission);
+                });
             });
-        });
+        }
 
         // check role using blade
-        Blade::if('role', function($role) {
+        Blade::if('role', function ($role) {
             return auth()->user()->hasRole($role);
         });
     }
