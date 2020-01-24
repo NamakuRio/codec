@@ -18,7 +18,8 @@ class Update
     {
         $migrations = $this->getMigrations();
         $dbMigrations = $this->getExecutedMigrations();
-        if (count($migrations) > count($dbMigrations)) {
+
+        if (count($migrations) != count($dbMigrations)) {
             return redirect()->route('LaravelUpdater::welcome');
         }
 
