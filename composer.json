@@ -10,16 +10,17 @@
     "require": {
         "php": "^7.2",
         "barryvdh/laravel-debugbar": "^3.2",
+        "dingo/api": "^2.4.0",
         "fideloper/proxy": "^4.0",
         "jenssegers/agent": "^2.6",
+        "jrm2k6/cloudder": "^0.6.0",
         "laravel/framework": "^6.2",
         "laravel/slack-notification-channel": "^2.0",
         "laravel/tinker": "^2.0",
         "nwidart/laravel-modules": "^6.2",
-        "yajra/laravel-datatables-oracle": "~9.0",
-        "jrm2k6/cloudder": "^0.6.0",
+        "rachidlaasri/laravel-installer": "^4.0",
         "tymon/jwt-auth": "1.0.x-dev",
-        "dingo/api": "^2.4.0"
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
