@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\UserRelation;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, UserRelation;
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +37,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeMyPhoto()
+    {
+        return ($this->photo_url == null ? asset('images/user/default.jpg') : asset($this->photo_url));
+    }
 }
