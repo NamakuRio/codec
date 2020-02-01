@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\SettingComposer;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
@@ -23,6 +25,9 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer(
+            'admin.*',
+            SettingComposer::class
+        );
     }
 }

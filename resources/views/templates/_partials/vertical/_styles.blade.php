@@ -1,4 +1,6 @@
 @yield('css')
+<!-- Custom box css -->
+<link href="@asset('assets/libs/custombox/custombox.min.css')" rel="stylesheet" type="text/css" />
 
 <!-- App css -->
 <link href="@asset('assets/css/bootstrap.min.css')" rel="stylesheet" type="text/css" />

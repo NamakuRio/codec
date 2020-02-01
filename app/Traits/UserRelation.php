@@ -13,17 +13,16 @@ trait UserRelation
     {
         $roles = $this->getAllRoles(Arr::flatten($roles));
 
-        if($roles == null) {
+        if ($roles == null) {
             return $this;
         }
 
         $this->roles()->saveMany($roles);
 
         return $this;
-
     }
 
-    public function removeRole(... $roles)
+    public function removeRole(...$roles)
     {
         $roles = $this->getAllRoles($roles);
 
@@ -43,7 +42,7 @@ trait UserRelation
     {
         $permissions = $this->getAllPermissions(Arr::flatten($permissions));
 
-        if($permissions == null) {
+        if ($permissions == null) {
             return $this;
         }
 
@@ -70,8 +69,8 @@ trait UserRelation
 
     public function hasRole(...$roles)
     {
-        foreach($roles as $role){
-            if($this->roles->contains('name', $role)){
+        foreach ($roles as $role) {
+            if ($this->roles->contains('name', $role)) {
                 return true;
             }
         }
@@ -96,8 +95,8 @@ trait UserRelation
 
     protected function hasPermissionThroughRole($permission)
     {
-        foreach($permission->roles as $role) {
-            if($this->roles->contains($role)) {
+        foreach ($permission->roles as $role) {
+            if ($this->roles->contains($role)) {
                 return true;
             }
         }

@@ -4,6 +4,8 @@
 @yield('script')
 <!-- Sweet Alert -->
 <script src="@asset('assets/libs/sweetalert/sweetalert2.all.min.js')"></script>
+<!-- Modal-Effect -->
+<script src="@asset('assets/libs/custombox/custombox.min.js')"></script>
 
 <!-- App js -->
 <script src="@asset('assets/js/app-vertical.min.js')"></script>
@@ -12,6 +14,10 @@
     var url = "{{ url('/') }}";
 
     $(document).on("DOMContentLoaded", function () {
+        lazyLoad();
+    });
+
+    $(document).on("DOMNodeInserted", function () {
         lazyLoad();
     });
 
@@ -62,14 +68,27 @@
 
     }
 
-    function openModal(target, effect = 'fadeIn')
+    function openModal(target, effect = 'fadein', focus = null)
     {
         var modal = new Custombox.modal({
             content: {
                 effect: effect,
                 target: target,
             }
-        })
+        });
+
+        modal.open();
+
+        if(focus != null){
+            focusable(focus);
+        }
+    }
+
+    function focusable(target)
+    {
+        setTimeout(() => {
+            $(target).focus();
+        }, 1);
     }
 
     function lazyLoad()

@@ -32,7 +32,7 @@
 
                             <div class="form-group mb-3">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="remember_me" id="remember-me" checked>
+                                    <input type="checkbox" class="custom-control-input" name="remember" id="remember-me" checked>
                                     <label class="custom-control-label" for="checkbox-signin">Ingat saya</label>
                                 </div>
                             </div>

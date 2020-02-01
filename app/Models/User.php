@@ -42,4 +42,33 @@ class User extends Authenticatable
     {
         return ($this->photo_url == null ? asset('images/user/default.jpg') : asset($this->photo_url));
     }
+
+    /**
+     *
+     * Status, Activation, PhoneVerification
+     *
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        $this->save();
+
+        return $this;
+    }
+
+    public function setActivation($activation)
+    {
+        $this->activation = $activation;
+        $this->save();
+
+        return $this;
+    }
+
+    public function setPhoneVerification($phone_verification)
+    {
+        $this->phone_verification = $phone_verification;
+        $this->save();
+
+        return $this;
+    }
 }
