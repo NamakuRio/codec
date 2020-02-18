@@ -26,6 +26,10 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(
+            'auth.*',
+            SettingComposer::class
+        );
+        View::composer(
             'admin.*',
             SettingComposer::class
         );

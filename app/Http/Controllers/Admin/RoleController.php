@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -11,6 +12,8 @@ class RoleController extends Controller
 {
     public function index()
     {
+        if ($this->checkPermission('role.view')) abort(404);
+
         return view('admin.role.index');
     }
 
@@ -111,6 +114,15 @@ class RoleController extends Controller
             ->escapeColumns([])
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function select2(Request $request)
+    {
+        $term = $request->data['term'];
+
+        $search = Role::where('name', 'like', '%' . $term . '%')->get();
+
+        return response()->json($search);
     }
 
     protected function checkPermission($permission)

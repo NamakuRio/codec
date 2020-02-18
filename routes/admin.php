@@ -5,12 +5,28 @@ Route::name('admin.')->group(function () {
 
     Route::name('account.')->prefix('account')->group(function () {
         Route::get('/', 'AccountController@index')->name('index');
+        Route::put('/', 'AccountController@update')->name('update');
     });
 
     Route::name('users.')->prefix('users')->group(function () {
         Route::get('/', 'UserController@index')->name('index');
 
-        Route::post('/get-users', 'UserController@getUsers')->name('getUsers');
+        Route::middleware('ajax')->group(function () {
+            // CRUD
+            Route::post('/', 'UserController@store')->name('store');
+            Route::post('/show', 'UserController@show')->name('show');
+            Route::put('/', 'UserController@update')->name('update');
+            Route::delete('/', 'UserController@destroy')->name('destroy');
+
+            // manage user
+            Route::post('/manage', 'UserController@showManage')->name('show.manage');
+            Route::put('/manage', 'UserController@manage')->name('manage');
+
+            // server-side datatable
+            Route::post('/get-users', 'UserController@getUsers')->name('getUsers');
+
+            Route::post('/check-username', 'UserController@checkUsername')->name('checkUsername');
+        });
     });
 
     Route::name('roles.')->prefix('roles')->group(function () {
@@ -32,6 +48,8 @@ Route::name('admin.')->group(function () {
 
             // server-side datatable
             Route::post('/get-roles', 'RoleController@getRoles')->name('getRoles');
+
+            Route::post('/select2', 'RoleController@select2')->name('select2');
         });
     });
 

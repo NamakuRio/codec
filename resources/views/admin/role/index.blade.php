@@ -137,25 +137,6 @@
                 </div>
             </div>
         </div>
-        {{-- <!-- Modal Manage -->
-        <div id="modal-manage-role" class="modal-demo">
-            <button type="button" class="close" onclick="Custombox.modal.close();">
-                <span>&times;</span><span class="sr-only">Tutup</span>
-            </button>
-            <h4 class="custom-modal-title">Kelola Peran</h4>
-            <div class="custom-modal-text text-left">
-                <form method="POST" action="javascript:void(0)" id="form-manage-role">
-                    @csrf
-                    @method("PUT")
-                    <input type="hidden" name="id" id="manage-role-id" required>
-                    <div class="row">
-                        <div class="col-12">
-                            <table></table>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div> --}}
     @endcan
 @endsection
 
@@ -409,7 +390,7 @@
                     },
                     dataType: "json",
                     beforeSend() {
-                        $('#form-update-role')[0].reset();
+                        $('#form-manage-role')[0].reset();
                         $("#btn-save-manage-role").html('<span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span> Loading...');
                         $("#btn-save-manage-role").attr('disabled', 'disabled');
                         $("input").attr('disabled', 'disabled');
