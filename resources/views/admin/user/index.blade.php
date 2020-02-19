@@ -915,7 +915,7 @@
                     }
                 },
                 error : function(xhr, status, error) {
-                    if(status != abort){
+                    if(status != 'abort'){
                         var err = eval('(' + xhr.responseText + ')');
                         notification(status, err.message);
                         checkCSRFToken(err.message);
