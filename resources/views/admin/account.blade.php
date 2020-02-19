@@ -179,9 +179,11 @@
                     }
                 },
                 error : function(xhr, status, error) {
-                    var err = eval('(' + xhr.responseText + ')');
-                    notification(status, err.message);
-                    checkCSRFToken(err.message);
+                    if(status != 'abort'){
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
+                    }
                 }
             });
         }
