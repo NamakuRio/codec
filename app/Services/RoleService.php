@@ -136,7 +136,7 @@ class RoleService
             $rows[$x[0]][$x[1]] = array('id' => $permission->id, 'action_name' => $x[1], 'is_role_permission' => (isset($role_permissions[$permission->id]->is_role_permission) && $role_permissions[$permission->id]->is_role_permission == 1) ? 1 : '', 'value' => (isset($role_permissions[$permission->id]) ? 1 : 0));
         }
 
-        $view .= '<input type="hidden" id="manage-role-id" name="id" value="' . $role->id . ' required>';
+        $view .= '<input type="hidden" id="manage-role-id" name="id" value="' . $role->id . '" required>';
         $view .= '<div class="table-responsive">';
 
         $view .= '<table class="table table-bordered table-hover text-center">';
