@@ -125,6 +125,15 @@
                     }
 
                     notification(result['status'], result['message']);
+                },
+                error : function(xhr, status, error) {
+                    var err = eval('(' + xhr.responseText + ')');
+                    notification(status, err.message);
+                    checkCSRFToken(err.message);
+
+                    setTimeout(() => {
+                        $('#username').focus();
+                    }, 50);
                 }
             })
         }
@@ -168,6 +177,11 @@
                         $('#help-block-update-account-username').addClass('text-success');
                         $('#help-block-update-account-username').removeClass('text-danger');
                     }
+                },
+                error : function(xhr, status, error) {
+                    var err = eval('(' + xhr.responseText + ')');
+                    notification(status, err.message);
+                    checkCSRFToken(err.message);
                 }
             });
         }

@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Events\UserLoginEvent;
+use App\Models\User;
 use Exception;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
@@ -35,7 +36,19 @@ class LoginService
 
                 $this->clearLoginAttempts($request);
 
+                $status_user = $this->checkStatusUser();
+                if ($status_user['status'] != 'success') {
+                    DB::rollback();
+
+                    $this->guard()->logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    return $status_user;
+                }
+
                 $user = auth()->user();
+
                 event(new UserLoginEvent($user));
 
                 $login_destination = $user->roles->first()->login_destination;
@@ -57,6 +70,28 @@ class LoginService
     public function username()
     {
         return 'username';
+    }
+
+    public function checkStatusUser()
+    {
+        $user = auth()->user();
+        $return = [];
+
+        switch ($user->status) {
+            case 0:
+                $return =  ['status' => 'warning', 'message' => 'Akun Anda belum aktif.'];
+                break;
+            case 1:
+                $return =  ['status' => 'success', 'message' => 'Anda dapat masuk.'];
+                break;
+            case 2:
+                $return =  ['status' => 'error', 'message' => 'Akun anda diblokir.'];
+                break;
+            default:
+                $return =  ['status' => 'error', 'message' => 'Status Anda tidak terdaftar.'];
+        }
+
+        return $return;
     }
 
     protected function attemptLogin(Request $request)

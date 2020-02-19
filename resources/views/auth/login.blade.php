@@ -117,6 +117,7 @@
                 error : function(xhr, status, error) {
                     var err = eval('(' + xhr.responseText + ')');
                     notification(status, err.message);
+                    checkCSRFToken(err.message);
 
                     setTimeout(() => {
                         $('#username').focus();

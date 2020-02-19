@@ -253,6 +253,15 @@
                         }
 
                         notification(result['status'], result['message']);
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
+
+                        setTimeout(() => {
+                            $('#add-role-name').focus();
+                        }, 50);
                     }
                 });
             }
@@ -295,6 +304,15 @@
                             $('#update-role-login-destination').val(result['data']['login_destination']);
                             focusable('#update-role-name');
                         }
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
+
+                        setTimeout(() => {
+                            $('#update-role-name').focus();
+                        }, 50);
                     }
                 });
             }
@@ -328,6 +346,15 @@
                         }
 
                         notification(result['status'], result['message']);
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
+
+                        setTimeout(() => {
+                            $('#update-role-name').focus();
+                        }, 50);
                     }
                 });
             }
@@ -362,6 +389,11 @@
                                                 getRoles();
                                             }
                                             swalNotification(result['status'], result['message']);
+                                        },
+                                        error : function(xhr, status, error) {
+                                            var err = eval('(' + xhr.responseText + ')');
+                                            notification(status, err.message);
+                                            checkCSRFToken(err.message);
                                         }
                                     });
 
@@ -411,6 +443,11 @@
                         } else {
                             $("#view-manage-role").html(result['data']);
                         }
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
                     }
                 });
             }
@@ -444,6 +481,11 @@
                         }
 
                         notification(result['status'], result['message']);
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
                     }
                 });
             }
@@ -476,6 +518,11 @@
                                                 getRoles();
                                             }
                                             swalNotification(result['status'], result['message']);
+                                        },
+                                        error : function(xhr, status, error) {
+                                            var err = eval('(' + xhr.responseText + ')');
+                                            notification(status, err.message);
+                                            checkCSRFToken(err.message);
                                         }
                                     });
 

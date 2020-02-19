@@ -90,9 +90,11 @@ class UserController extends Controller
             ->editColumn('status', function ($user) {
                 $status = "";
 
+                $status .= "<a href='javascript:void(0)' data-id='$user->id' onclick='getUpdateStatus(this)'>";
                 if ($user->status == 0) $status .= "<span class='badge bg-soft-warning text-warning'>Belum Aktif</span>";
                 if ($user->status == 1) $status .= "<span class='badge bg-soft-success text-success'>Aktif</span>";
                 if ($user->status == 2) $status .= "<span class='badge bg-soft-danger text-danger'>Diblokir</span>";
+                $status .= "</a>";
 
                 return $status;
             })

@@ -219,6 +219,15 @@
                         }
 
                         notification(result['status'], result['message']);
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
+
+                        setTimeout(() => {
+                            $('#add-permission-name').focus();
+                        }, 50);
                     }
                 });
             }
@@ -261,6 +270,15 @@
                             $('#update-permission-guard-name').val(result['data']['guard_name']);
                             focusable('#update-permission-name');
                         }
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
+
+                        setTimeout(() => {
+                            $('#update-permission-name').focus();
+                        }, 50);
                     }
                 });
             }
@@ -294,6 +312,15 @@
                         }
 
                         notification(result['status'], result['message']);
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
+
+                        setTimeout(() => {
+                            $('#update-permission-name').focus();
+                        }, 50);
                     }
                 });
             }
@@ -328,6 +355,11 @@
                                                 getPermissions();
                                             }
                                             swalNotification(result['status'], result['message']);
+                                        },
+                                        error : function(xhr, status, error) {
+                                            var err = eval('(' + xhr.responseText + ')');
+                                            notification(status, err.message);
+                                            checkCSRFToken(err.message);
                                         }
                                     });
 

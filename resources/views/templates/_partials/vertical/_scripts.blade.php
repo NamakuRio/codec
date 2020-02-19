@@ -114,6 +114,13 @@
             console.log('gagal memuat gambar');
         }
     }
+
+    function checkCSRFToken(errorMessage = "")
+    {
+        if(errorMessage == 'CSRF token mismatch.') {
+            location.reload();
+        }
+    }
 </script>
 
 @yield('script-bottom')

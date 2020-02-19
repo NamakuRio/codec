@@ -267,6 +267,37 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;" id="modal-update-user-status">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Status</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <form method="POST" action="javascript:void(0)" id="form-update-user-status">
+                        @csrf
+                        @method("PUT")
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="update-user-status-id" required>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="update-user-status-selection">Status</label>
+                                    <select name="status" id="update-user-status-selection" class="form-control">
+                                        {{-- <option value="0">Belum Aktif</option>
+                                        <option value="1">Aktif</option>
+                                        <option value="2">Diblokir</option> --}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-whitesmoke br">
+                            <button type="submit" class="btn btn-success waves-effect waves-light" id="btn-save-update-user-status">Simpan</button>
+                            <button type="button" class="btn btn-danger waves-effect waves-light m-l-10" data-dismiss="modal">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     @endcan
 
     @can('user.manage')
@@ -306,6 +337,25 @@
         $(function () {
             "use strict";
 
+            $('#update-user-status-selection').select2({
+                width: '100%',
+                placeholder: 'Pilih Status',
+                data: [
+                    {
+                        id: 0,
+                        text: 'Belum Aktif',
+                    },
+                    {
+                        id: 1,
+                        text: 'Aktif',
+                    },
+                    {
+                        id: 2,
+                        text: 'Diblokir',
+                    },
+                ]
+            });
+
             $('#add-user-role').select2({
                 width: '100%',
                 placeholder: 'Pilih Peran',
@@ -339,6 +389,7 @@
                     }
                 }
             });
+
             $('#update-user-role').select2({
                 width: '100%',
                 placeholder: 'Pilih Peran',
@@ -515,6 +566,11 @@
                         }
 
                         notification(result['status'], result['message']);
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
                     }
                 });
             }
@@ -555,7 +611,7 @@
                     },
                     success : function(result) {
                         if(result['status'] == 'error'){
-                            Custombox.modal.close();
+                            $('#modal-update-user').modal('hide');
                             notification(result['status'], result['message']);
                         } else {
                             $('#update-user-role').append('<option value="'+result['role']['id']+'" selected>'+result['role']['name']+'</option>');
@@ -566,6 +622,11 @@
                             $('#update-user-phone').val(result['data']['phone']);
                             focusable('#update-user-username');
                         }
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
                     }
                 });
             }
@@ -599,6 +660,55 @@
                         }
 
                         notification(result['status'], result['message']);
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
+                    }
+                });
+            }
+
+            function getUpdateStatus(object)
+            {
+                var id = $(object).data('id');
+
+                $.ajax({
+                    url: "@route('admin.users.show')",
+                    type: "POST",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'id': id,
+                    },
+                    dataType: "json",
+                    beforeSend() {
+                        $('#form-update-user-status')[0].reset();
+                        $("#btn-save-update-user-status").html('<span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span> Loading...');
+                        $("#btn-save-update-user-status").attr('disabled', 'disabled');
+                        $("select").attr('disabled', 'disabled');
+                        $("button").attr('disabled', 'disabled');
+                        $('#modal-update-user-status').modal('show');
+                    },
+                    complete() {
+                        $("#btn-save-update-user-status").html('Simpan');
+                        $("#btn-save-update-user-status").removeAttr('disabled', 'disabled');
+                        $("select").removeAttr('disabled', 'disabled');
+                        $("button").removeAttr('disabled', 'disabled');
+                    },
+                    success : function(result) {
+                        if(result['status'] == 'error'){
+                            $('#modal-update-user-status').modal('hide');
+                            notification(result['status'], result['message']);
+                        } else {
+                            $('#update-user-status-id').val(result['data']['id']);
+                            $('#update-user-status-selection').val(result['data']['status']);
+                            $('#update-user-status-selection').trigger('change.select2');
+                        }
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
                     }
                 });
             }
@@ -633,6 +743,11 @@
                                                 getUsers();
                                             }
                                             swalNotification(result['status'], result['message']);
+                                        },
+                                        error : function(xhr, status, error) {
+                                            var err = eval('(' + xhr.responseText + ')');
+                                            notification(status, err.message);
+                                            checkCSRFToken(err.message);
                                         }
                                     });
 
@@ -682,6 +797,11 @@
                         } else {
                             $("#view-manage-user").html(result['data']);
                         }
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
                     }
                 });
             }
@@ -715,6 +835,11 @@
                         }
 
                         notification(result['status'], result['message']);
+                    },
+                    error : function(xhr, status, error) {
+                        var err = eval('(' + xhr.responseText + ')');
+                        notification(status, err.message);
+                        checkCSRFToken(err.message);
                     }
                 });
             }
@@ -788,6 +913,11 @@
                             $('#help-block-update-user-username').removeClass('text-danger');
                         }
                     }
+                },
+                error : function(xhr, status, error) {
+                    var err = eval('(' + xhr.responseText + ')');
+                    notification(status, err.message);
+                    checkCSRFToken(err.message);
                 }
             });
         }
