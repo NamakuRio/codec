@@ -48,12 +48,12 @@ class PermissionTableSeeder extends Seeder
                 ['name' => 'user.delete', 'guard_name' => 'Menghapus Pengguna', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'user.manage', 'guard_name' => 'Mengelola Pengguna', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ];
-            for($i = 0; $i <= 100; $i++){
-                $permissions[] = ['name' => Str::random(rand(50, 120)).'.create', 'guard_name' => Str::random(rand(50, 120)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
-                $permissions[] = ['name' => Str::random(rand(50, 120)).'.view', 'guard_name' => Str::random(rand(50, 120)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
-                $permissions[] = ['name' => Str::random(rand(50, 120)).'.update', 'guard_name' => Str::random(rand(50, 120)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
-                $permissions[] = ['name' => Str::random(rand(50, 120)).'.delete', 'guard_name' => Str::random(rand(50, 120)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
-                $permissions[] = ['name' => Str::random(rand(50, 120)).'.manage', 'guard_name' => Str::random(rand(50, 120)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+            for($i = 0; $i <= 1000; $i++){
+                $permissions[] = ['name' => Str::random(rand(50, 75)).'.create', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(rand(50, 75)).'.view', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(rand(50, 75)).'.update', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(rand(50, 75)).'.delete', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(rand(50, 75)).'.manage', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
             }
             foreach ($permissions as $permission) {
                 $insert = Permission::create($permission);
