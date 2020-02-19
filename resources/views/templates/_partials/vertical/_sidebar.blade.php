@@ -50,6 +50,12 @@
                         </ul>
                     </li>
                 @endif
+                <li>
+                    <a href="@route('log-viewer::dashboard')">
+                        <i class="fe-server"></i>
+                        <span> Log </span>
+                    </a>
+                </li>
                 @can('setting_group.view')
                     <li>
                         <a href="@route('admin.settings.index')">
