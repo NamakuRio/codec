@@ -49,11 +49,11 @@ class PermissionTableSeeder extends Seeder
                 ['name' => 'user.manage', 'guard_name' => 'Mengelola Pengguna', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ];
             for($i = 0; $i <= 1000; $i++){
-                $permissions[] = ['name' => Str::random(rand(50, 75)).'.create', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
-                $permissions[] = ['name' => Str::random(rand(50, 75)).'.view', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
-                $permissions[] = ['name' => Str::random(rand(50, 75)).'.update', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
-                $permissions[] = ['name' => Str::random(rand(50, 75)).'.delete', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
-                $permissions[] = ['name' => Str::random(rand(50, 75)).'.manage', 'guard_name' => Str::random(rand(50, 75)), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(15).'.create', 'guard_name' => Str::random(15), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(15).'.view', 'guard_name' => Str::random(15), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(15).'.update', 'guard_name' => Str::random(15), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(15).'.delete', 'guard_name' => Str::random(15), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+                $permissions[] = ['name' => Str::random(15).'.manage', 'guard_name' => Str::random(15), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
             }
             foreach ($permissions as $permission) {
                 $insert = Permission::create($permission);
